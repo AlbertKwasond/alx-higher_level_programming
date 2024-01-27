@@ -2,17 +2,12 @@
 """
 Sends a request to a URL and displays the value of the X-Request-Id variable
 """
-
-import urllib.request
 import sys
+import urllib.request
 
-if len(sys.argv) != 2:
-    print("Usage: ./1-hbtn_header.py <URL>")
-    sys.exit(1)
+if __name__ == "__main__":
+    url = sys.argv[1]
 
-url = sys.argv[1]
-
-with urllib.request.urlopen(url) as response:
-    header_value = response.getheader('X-Request-Id')
-    print(header_value)
-
+    request = urllib.request.Request(url)
+    with urllib.request.urlopen(request) as response:
+        print(dict(response.headers).get("X-Request-Id"))
